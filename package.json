@@ -12,6 +12,7 @@
     "ts-test": "ts-mocha src/test/**/*.spec.ts",
     "preversion": "npm test",
     "prepublishOnly": "tsc",
+    "publish": "npm publish",
     "example": "ts-node example",
     "example:debug": "node %NODE_DEBUG_OPTION% dist/example",
     "example2": "ts-node %NODE_DEBUG_OPTION% --project tsconfig.json example",
