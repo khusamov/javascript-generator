@@ -27,3 +27,25 @@ const objectCodeSample = new ObjectCode(objectNodeSample);
 console.log(objectCodeSample.toString());
 
 ```
+
+В консоли отобразится следующее:
+
+```javascript
+const objectSample = {
+    serviceMethod: 'getPaymentsHistoryByDebtor',
+    reader: {
+        rootProperty: 'result.ResultItems',
+        typeProperty: function(rawNode) {
+            const namespace = "Pir.server.model.baseModel.type";
+            return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+        },
+        // **
+        // * Комментарий к property1.
+        // *
+        property1: {
+            a: 'a',
+            b: 'b'
+        }
+    }
+};
+```
