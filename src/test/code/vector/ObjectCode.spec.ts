@@ -57,6 +57,9 @@ describe('ObjectCode', function() {
 							return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
 						}
 					},
+					// **
+					// * Комментарий к property1.
+					// *
 					property1: {
 						a: 'a',
 						b: 'b'
