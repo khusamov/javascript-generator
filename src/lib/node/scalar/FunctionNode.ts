@@ -12,6 +12,6 @@ export default class FunctionNode extends ScalarNode {
 	}
 	get isArrowFunction(): boolean {
 		const match = this.value.toString().match(/.*?=>/);
-		return match ? !match[0].match(/.*?\(/) : false;
+		return match ? !match[0].match(/.+?\(/) : false;
 	}
 }
