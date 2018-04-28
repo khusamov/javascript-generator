@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Генератор кода для JavaScript",
   "author": "Khusamov Sukhrob <khusamov@yandex.ru>",
+  "homepage": "https://github.com/khusamov/javascript-generator",
+  "repository": "github:khusamov/javascript-generator",
   "license": "ISC",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
