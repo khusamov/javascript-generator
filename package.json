@@ -1,0 +1,41 @@
+{
+  "name": "khusamov-javascript-generator",
+  "version": "1.0.0",
+  "description": "Генератор кода для JavaScript",
+  "author": "Khusamov Sukhrob <khusamov@yandex.ru>",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "test": "tsc && mocha dist/test/**/*.spec.js",
+    "ts-test": "ts-mocha src/test/**/*.spec.ts",
+    "preversion": "npm test",
+    "prepublishOnly": "tsc",
+    "example": "ts-node example",
+    "example:debug": "node %NODE_DEBUG_OPTION% dist/example",
+    "example2": "ts-node %NODE_DEBUG_OPTION% --project tsconfig.json example",
+    "debug": "./node_modules/.bin/ts-node %NODE_DEBUG_OPTION% --project tsconfig.json ./example/index.ts",
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run test1\"",
+    "test_old": "tsc && \"node_modules/.bin/mocha\" dist/test/**/*.spec.js"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/expect": "^1.20.3",
+    "@types/express": "^4.0.35",
+    "@types/jsonpath": "^0.2.0",
+    "@types/lodash": "^4.14.65",
+    "@types/mocha": "^5.2.0",
+    "@types/node": "^7.0.12",
+    "chai": "^4.1.2",
+    "mocha": "^5.1.0",
+    "ts-mocha": "^1.2.0",
+    "ts-node": "^6.0.0",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "jsonpath": "^1.0.0",
+    "lodash": "^4.17.4",
+    "prettier": "^1.4.2"
+  }
+}
