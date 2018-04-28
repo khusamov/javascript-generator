@@ -10,17 +10,12 @@
     "dist"
   ],
   "scripts": {
-    "test": "tsc && mocha dist/test/**/*.spec.js",
-    "ts-test": "ts-mocha src/test/**/*.spec.ts",
+    "test": "ts-mocha src/test/**/*.spec.ts",
     "preversion": "npm test",
+    "version": "npm publish",
+    "postversion": "git push && git push --tags",
     "prepublishOnly": "tsc",
-    "publish": "npm publish",
-    "example": "ts-node example",
-    "example:debug": "node %NODE_DEBUG_OPTION% dist/example",
-    "example2": "ts-node %NODE_DEBUG_OPTION% --project tsconfig.json example",
-    "debug": "./node_modules/.bin/ts-node %NODE_DEBUG_OPTION% --project tsconfig.json ./example/index.ts",
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run test1\"",
-    "test_old": "tsc && \"node_modules/.bin/mocha\" dist/test/**/*.spec.js"
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run test1\""
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",
