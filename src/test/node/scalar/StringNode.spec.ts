@@ -21,7 +21,7 @@ describe('StringNode', () => {
 	sampleStrings.forEach(sampleString => {
 		it((isMultiLine(sampleString) ? 'Много строк: ' + sampleString.replace(/\n/g, '\\n') : sampleString), () => {
 			assert.equal(
-				new StringNodeView(new StringNode(sampleString)).toString(),
+				new StringNodeView(new StringNode('sampleString', sampleString)).toString(),
 				isMultiLine(sampleString) ? `\`${sampleString}\`` : `'${sampleString}'`
 			);
 		});

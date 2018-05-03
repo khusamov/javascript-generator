@@ -17,7 +17,7 @@ describe('NumberNode', function() {
 		sampleNumbers.forEach(sampleNumber => {
 			it(String(sampleNumber).valueOf(), () => {
 				assert.equal<string>(
-					new NumberNodeView(new NumberNode(sampleNumber)).toString(),
+					new NumberNodeView(new NumberNode('sampleNumber', sampleNumber)).toString(),
 					String(sampleNumber).valueOf()
 				);
 			});
@@ -29,7 +29,7 @@ describe('NumberNode', function() {
 			const sampleNumberObject = new Number(sampleNumber);
 			it('new Number(' + String(sampleNumberObject).valueOf() + ')', () => {
 				assert.equal<string>(
-					new NumberNodeView(new NumberNode(sampleNumberObject)).toString(),
+					new NumberNodeView(new NumberNode('sampleNumberObject', sampleNumberObject)).toString(),
 					`new Number(${String(sampleNumberObject).valueOf()})`
 				);
 			});

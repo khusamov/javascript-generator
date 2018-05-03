@@ -11,7 +11,7 @@ describe('ArrayNode', function() {
 
 	function assertArrayTypeEqual(actual: any[], expected: string, message?: string): void {
 		assert.equal<string>(
-			normalizeString(new ArrayNodeView(new ArrayNode(actual)).toString()),
+			normalizeString(new ArrayNodeView(new ArrayNode('arrayName', actual)).toString()),
 			normalizeString(expected),
 			message
 		);

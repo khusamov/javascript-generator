@@ -1,4 +1,6 @@
+
 export default abstract class AbstractNode {
+	public comment: string;
 	protected _value: any;
 	get value(): any {
 		return this._value;
@@ -6,7 +8,7 @@ export default abstract class AbstractNode {
 	set value(value: any) {
 		this._value = value;
 	}
-	constructor(value: any, public name?: string, public comment?: string) {
+	constructor(public name: string, value: any) {
 		this.value = value;
 	}
 }

@@ -12,18 +12,18 @@ import ArrayNode from './vector/ArrayNode';
 import ObjectNode from './vector/ObjectNode';
 
 export default class NodeFactory {
-	static createNode(value: any): Node {
+	static createNode(name: string, value: any): Node {
 		if (value instanceof Node) return value;
-		else if (_.isString(value)) return new StringNode(value);
-		else if (_.isBoolean(value)) return new BooleanNode(value);
-		else if (_.isNumber(value)) return new NumberNode(value);
-		else if (_.isDate(value)) return new DateNode(value);
-		else if (_.isRegExp(value)) return new RegExpNode(value);
-		else if (_.isFunction(value)) return new FunctionNode(value);
-		else if (_.isUndefined(value)) return new UndefinedNode(value);
-		else if (_.isNull(value)) return new NullNode(value);
-		else if (_.isArray(value)) return new ArrayNode(value);
-		else if (_.isPlainObject(value)) return new ObjectNode(value);
-		throw new Error(`Не найден тип для: ${JSON.stringify(value)}`);
+		else if (_.isString(value)) return new StringNode(name, value);
+		else if (_.isBoolean(value)) return new BooleanNode(name, value);
+		else if (_.isNumber(value)) return new NumberNode(name, value);
+		else if (_.isDate(value)) return new DateNode(name, value);
+		else if (_.isRegExp(value)) return new RegExpNode(name, value);
+		else if (_.isFunction(value)) return new FunctionNode(name, value);
+		else if (_.isUndefined(value)) return new UndefinedNode(name, value);
+		else if (_.isNull(value)) return new NullNode(name, value);
+		else if (_.isArray(value)) return new ArrayNode(name, value);
+		else if (_.isPlainObject(value)) return new ObjectNode(name, value);
+		throw new Error(`Не найден тип для: ${JSON.stringify(name, value)}`);
 	}
 }

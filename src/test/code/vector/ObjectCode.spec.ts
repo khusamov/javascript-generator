@@ -31,8 +31,7 @@ describe('ObjectCode', function() {
 	`;
 
 	it('create', function() {
-		const objectNodeSample = new ObjectNode(_.cloneDeep(objectSample));
-		objectNodeSample.name = 'objectSample';
+		const objectNodeSample = new ObjectNode('objectSample', _.cloneDeep(objectSample));
 		const objectCodeSample = new ObjectCode(objectNodeSample);
 		assert.equal(
 			normalizeString(objectCodeSample.toString()),
@@ -41,10 +40,9 @@ describe('ObjectCode', function() {
 	});
 
 	it('add', function() {
-		const objectNodeSample = new ObjectNode(_.cloneDeep(objectSample));
+		const objectNodeSample = new ObjectNode('objectSample', _.cloneDeep(objectSample));
 		objectNodeSample.comment = 'Комментарий к objectSample.';
-		objectNodeSample.name = 'objectSample';
-		objectNodeSample.add('property1', {a:'a',b:'b'}, 'Комментарий к property1.');
+		objectNodeSample.add('property1', 'Комментарий к property1.', {a:'a',b:'b'});
 		const objectCodeSample = new ObjectCode(objectNodeSample);
 		assert.equal(
 			normalizeString(objectCodeSample.toString()),

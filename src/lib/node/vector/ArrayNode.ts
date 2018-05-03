@@ -26,17 +26,16 @@ export default class ArrayNode extends VectorNode {
 		super.value = value;
 	}
 
-	constructor(...value: any[])
-	constructor(value?: any | any[]) {
-		super(value);
-		this.add.apply(this, arguments);
+	constructor(name: string, value: any) {
+		super(name, value);
+		this.add.apply(this, Array.from(arguments).slice(1));
 	}
 
 	add(...value: any[]): this
 	add(value: any | any[]): this {
 		value = arguments.length > 1 ? Array.from(arguments) : value;
 		value = _.isArray(value) ? value : [value];
-		const items = value.map(NodeFactory.createNode.bind(NodeFactory));
+		const items = value.map((item, index) => NodeFactory.createNode(index, item));
 		this.items = this.items.concat(items);
 		this.uniq();
 		return this;

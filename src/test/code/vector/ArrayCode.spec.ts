@@ -17,8 +17,7 @@ describe('ArrayCode', function() {
 	}];
 
 	it('add', function() {
-		const arrayNodeSample = new ArrayNode(_.cloneDeep(arraySample));
-		arrayNodeSample.name = 'arraySample';
+		const arrayNodeSample = new ArrayNode('arraySample', _.cloneDeep(arraySample));
 		arrayNodeSample.add({
 			type: 'textfield',
 			name: 'password',

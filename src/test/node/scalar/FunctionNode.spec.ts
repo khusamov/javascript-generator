@@ -15,7 +15,7 @@ describe('FunctionNode', () => {
 	};
 
 	it('Обычная функция', () => {
-		const actual: string = new FunctionNodeView(new FunctionNode(sampleFunction)).toString();
+		const actual: string = new FunctionNodeView(new FunctionNode('sampleFunction', sampleFunction)).toString();
 		const expected: string = sampleFunction.toString();
 		assert.notEqual<string>(actual, expected);
 		assert.equal<string>(actual, expected.replace('function (', 'function('));
@@ -23,7 +23,7 @@ describe('FunctionNode', () => {
 
 	it('Стрелочная функция с параметром', () => {
 		assert.equal<string>(
-			new FunctionNodeView(new FunctionNode(sampleArrowFunction)).toString(),
+			new FunctionNodeView(new FunctionNode('sampleArrowFunction', sampleArrowFunction)).toString(),
 			sampleArrowFunction.toString()
 		);
 	});

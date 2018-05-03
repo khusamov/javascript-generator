@@ -29,7 +29,7 @@ describe('ObjectNode', () => {
 
 	it('Образец объекта', () => {
 		assert.equal(
-			normalizeString(new ObjectNodeView(new ObjectNode(sampleObject)).toString()),
+			normalizeString(new ObjectNodeView(new ObjectNode('sampleObject', sampleObject)).toString()),
 			normalizeString(sampleObjectAsString)
 		);
 	});
