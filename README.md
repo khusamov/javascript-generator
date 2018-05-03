@@ -12,7 +12,9 @@
 Пример использования
 --------------------
 
-```javascript
+```typescript
+
+import { ObjectNode, ObjectCode, Prettier } from 'khusamov-javascript-generator';
 
 // Создание JavaScript-объекта с именем objectSample.
 const objectNodeSample = new ObjectNode('objectSample', {
@@ -31,13 +33,13 @@ objectNodeSample.add('property1', 'Комментарий к property1.', {a:'a'
 
 // Вывод кода объекта.
 const objectCodeSample = new ObjectCode(objectNodeSample);
-console.log(objectCodeSample.toString());
+console.log(Prettier.prettyFormat(objectCodeSample.toString()));
 
 ```
 
 В консоли отобразится следующее:
 
-```javascript
+```typescript
 const objectSample = {
     serviceMethod: 'getPaymentsHistoryByDebtor',
     reader: {
