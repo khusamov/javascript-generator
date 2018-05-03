@@ -42,17 +42,21 @@ export default class ObjectNode extends VectorNode {
 			value: any,
 			comment: string
 		}[]).forEach(property => {
-			const type = (function createType() {
-				const type = property.value instanceof Node ? property.value : NodeFactory.createNode(property.value);
-				type.name = property.name;
-				if ('comment' in property && !!property.comment) type.comment = property.comment;
-				return type;
+			const node = (function createType() {
+				const node = (
+					property.value instanceof Node
+						? property.value
+						: NodeFactory.createNode(property.value)
+				);
+				node.name = property.name;
+				if ('comment' in property && !!property.comment) node.comment = property.comment;
+				return node;
 			})();
-			const found = this.items.find(item => item.name === type.name);
+			const found = this.items.find(item => item.name === node.name);
 			if (found) {
-				this.items.splice(this.items.indexOf(found), 1, type);
+				this.items.splice(this.items.indexOf(found), 1, node);
 			} else {
-				this.items.push(type);
+				this.items.push(node);
 			}
 		});
 		return this;
