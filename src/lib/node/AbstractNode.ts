@@ -1,4 +1,4 @@
-export default class AbstractNode {
+export default abstract class AbstractNode {
 	protected _value: any;
 	get value(): any {
 		return this._value;
