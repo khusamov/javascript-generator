@@ -42,12 +42,16 @@ describe('ObjectCode', function() {
 
 	it('add', function() {
 		const objectNodeSample = new ObjectNode(_.cloneDeep(objectSample));
+		objectNodeSample.comment = 'Комментарий к objectSample.';
 		objectNodeSample.name = 'objectSample';
 		objectNodeSample.add('property1', {a:'a',b:'b'}, 'Комментарий к property1.');
 		const objectCodeSample = new ObjectCode(objectNodeSample);
 		assert.equal(
 			normalizeString(objectCodeSample.toString()),
 			normalizeString(`
+				// **
+				// * Комментарий к objectSample.
+				// *
 				const objectSample = {
 					serviceMethod: 'getPaymentsHistoryByDebtor',
 					reader: {

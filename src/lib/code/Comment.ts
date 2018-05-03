@@ -36,7 +36,7 @@ export default class Comment extends String {
 			Comment.START,
 			...ArrayTrimmer.trim(this.asArray).map(str => `${Comment.MIDDLE}${str}`),
 			Comment.END
-		].join();
+		].join(Comment.EOL);
 	}
 
 	clone(): Comment {
