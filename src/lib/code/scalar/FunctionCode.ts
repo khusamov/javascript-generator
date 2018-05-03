@@ -1,9 +1,13 @@
 import Code from '../Code';
 import Comment from '../Comment';
 import FunctionNode from '../../node/scalar/FunctionNode';
+import Node from '../../node/Node';
 
 export default class FunctionCode extends Code {
 	protected node: FunctionNode;
+	constructor(node: Node) {
+		super(node);
+	}
 	toString(): string {
 		const result: string[] = [];
 		if (this.node.comment) result.push(new Comment(this.node.comment).toCodeString());
