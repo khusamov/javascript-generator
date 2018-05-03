@@ -8,6 +8,9 @@ export default class ObjectNodeView extends VectorNodeView {
 	protected brackets = '{}';
 	protected itemDivider = ',\n';
 	protected bracketDivider = '\n';
+	constructor(node: Node) {
+		super(node);
+	}
 	protected itemToString(item: Node): string {
 		const NodeViewFactory = require('../NodeViewFactory').default;
 		return (

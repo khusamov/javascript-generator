@@ -7,4 +7,7 @@ export default class ArrayNodeView extends VectorNodeView {
 	protected brackets = '[]';
 	protected itemDivider = ', ';
 	protected bracketDivider = '';
+	constructor(node: Node) {
+		super(node);
+	}
 }
