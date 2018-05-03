@@ -8,7 +8,7 @@ export default class ObjectNode extends VectorNode {
 	protected brackets = '{}';
 
 	get value(): any {
-		const value = this.items.reduce<any>((result, item, index): any => {
+		const value = this.items.reduce<any>((result, item): any => {
 			return Object.assign(result, {[item.name]: item.value});
 		}, {});
 		value['$$items'] = this.items;
