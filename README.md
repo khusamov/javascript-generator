@@ -7,7 +7,13 @@
 
 Форматирование производится посредством NPM-модуля 
 [prettier](https://prettier.io/docs/en/).
- 
+
+Инсталяция
+----------
+
+```bash
+npm i khusamov-javascript-generator --save
+```
 
 Пример использования
 --------------------
