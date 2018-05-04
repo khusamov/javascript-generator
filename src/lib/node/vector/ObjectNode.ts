@@ -25,7 +25,7 @@ export default class ObjectNode extends VectorNode {
 		super.value = value;
 	}
 
-	constructor(name: string, value: any) {
+	constructor(name: string, value: any = {}) {
 		super(name, value);
 		this.add.apply(this, Array.from(arguments).slice(1));
 	}
