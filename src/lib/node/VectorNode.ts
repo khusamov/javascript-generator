@@ -33,27 +33,33 @@ export default abstract class VectorNode extends Node {
 		return this;
 	}
 
-	down<T extends Node>(pathExpression: string): T {
+	/**
+	 * Получение дочернего узла.
+	 * @param {string} pathExpression
+	 * @returns {T | undefined}
+	 */
+	down<T extends Node>(pathExpression: string): T | undefined {
+		let result;
 
 		// Значение this.jsonPath вычисляется при каждом обращении, поэтому сохраняем его в константу.
 		// Иначе по parent.indexOf(node) далее невозможно будет вычислить номер элемента массива.
 		const jsonPath = this.jsonPath;
 
-		const node = jsonPath.down(pathExpression);
-		if (!node) throw new Error(`Не найден узел '${pathExpression}'.`);
+		const foundNodes = jsonPath.query(pathExpression);
+		if (foundNodes.length) {
+			const node = foundNodes[0];
+			const parent = jsonPath.parent(pathExpression);
+			const items = parent['$$items'] as Node[];
 
-		const parent = jsonPath.parent(pathExpression);
-		const items = parent['$$items'] as Node[];
-
-		let type;
-		if (_.isArray(parent)) {
-			type = items[parent.indexOf(node)];
-		} else {
-			const name = _.findKey(parent, n => n === node);
-			type = items.find(item => item.name === name);
+			if (_.isArray(parent)) {
+				result = items[parent.indexOf(node)];
+			} else {
+				const name = _.findKey(parent, n => n === node);
+				result = items.find(item => item.name === name);
+			}
 		}
 
-		return type;
+		return result;
 	}
 
 	makeComment(pathExpression: string, comment: string): this {
@@ -61,7 +67,7 @@ export default abstract class VectorNode extends Node {
 		return this;
 	}
 
-	find<T extends Node>(jsonPathExpressionOrFilterFn: string | TFilterFunction<T>): T {
+	find<T extends Node>(jsonPathExpressionOrFilterFn: string | TFilterFunction<T>): T | undefined {
 		let result: T;
 		if (_.isString(jsonPathExpressionOrFilterFn)) {
 			result = this.down<T>(jsonPathExpressionOrFilterFn);

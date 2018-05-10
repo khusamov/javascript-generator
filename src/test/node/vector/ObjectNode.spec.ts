@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
-import { ObjectNode, ObjectNodeView } from '../../..';
+import { NullNode, ObjectNode, ObjectNodeView } from '../../..';
 import { normalizeString } from '../../util';
 
 describe('ObjectNode', () => {
@@ -32,6 +32,21 @@ describe('ObjectNode', () => {
 			normalizeString(new ObjectNodeView(new ObjectNode('sampleObject', sampleObject)).toString()),
 			normalizeString(sampleObjectAsString)
 		);
+	});
+
+	it('Проверка наличия несуществующего свойства', function() {
+		const sampleObjectNode = new ObjectNode('sampleObject');
+		assert.isFalse(sampleObjectNode.has('extend'));
+	});
+
+	it('Проверка наличия существующего свойства', function() {
+		const sampleObjectNode = new ObjectNode('sampleObject', { property1: null });
+		assert.isTrue(sampleObjectNode.has('property1'));
+	});
+
+	it('Получение дочернего узла', function() {
+		const sampleObjectNode = new ObjectNode('sampleObject', { property1: null });
+		assert.instanceOf<NullNode>(sampleObjectNode.down<NullNode>('property1'), NullNode);
 	});
 
 });
