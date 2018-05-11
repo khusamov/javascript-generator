@@ -34,6 +34,11 @@ describe('ObjectNode', () => {
 		);
 	});
 
+	it('Создание пустого узла', function() {
+		const sampleObjectNode = new ObjectNode('sampleObject');
+		assert.strictEqual<number>(sampleObjectNode.count, 0);
+	});
+
 	it('Проверка наличия несуществующего свойства', function() {
 		const sampleObjectNode = new ObjectNode('sampleObject');
 		assert.isFalse(sampleObjectNode.has('extend'));

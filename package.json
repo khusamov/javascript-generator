@@ -16,10 +16,10 @@
     "version:minor": "npm version minor",
     "version:patch": "npm version patch",
     "preversion": "npm test",
-    "version": "npm publish && rmdir /S /Q dist",
+    "version": "npm publish",
     "postversion": "git push && git push --tags",
     "prepublishOnly": "tsc",
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run test1\""
+    "postpublish": "rmdir /S /Q dist"
   },
   "devDependencies": {
     "@types/chai": "^4.1.2",

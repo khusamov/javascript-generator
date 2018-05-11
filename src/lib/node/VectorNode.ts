@@ -9,7 +9,12 @@ export default abstract class VectorNode extends Node {
 	protected divider: string = ', ';
 	protected brackets: string;
 	protected codeDivider: string;
+
 	public items: Node[] = [];
+
+	get count(): number {
+		return this.items.length;
+	}
 
 	/**
 	 * Так как jsonPath постоянно вычисляется, то перед работой желательно
@@ -30,6 +35,16 @@ export default abstract class VectorNode extends Node {
 	}
 
 	add(value: any): this {
+		return this;
+	}
+
+	remove(removable: Node): this {
+		_.remove(this.items, item => item === removable);
+		return this;
+	}
+
+	makeComment(pathExpression: string, comment: string): this {
+		this.down(pathExpression).comment = comment;
 		return this;
 	}
 
@@ -62,11 +77,6 @@ export default abstract class VectorNode extends Node {
 		return result;
 	}
 
-	makeComment(pathExpression: string, comment: string): this {
-		this.down(pathExpression).comment = comment;
-		return this;
-	}
-
 	find<T extends Node>(jsonPathExpressionOrFilterFn: string | TFilterFunction<T>): T | undefined {
 		let result: T;
 		if (_.isString(jsonPathExpressionOrFilterFn)) {
@@ -80,11 +90,6 @@ export default abstract class VectorNode extends Node {
 
 	has(jsonPathExpressionOrFilterFn: string | TFilterFunction<Node>): boolean {
 		return !!this.find(jsonPathExpressionOrFilterFn);
-	}
-
-	remove(removable: Node): this {
-		_.remove(this.items, item => item === removable);
-		return this;
 	}
 
 }
