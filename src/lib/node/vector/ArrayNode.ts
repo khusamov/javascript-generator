@@ -16,13 +16,13 @@ export default class ArrayNode extends VectorNode {
 	protected brackets = '[]';
 	protected codeDivider = '';
 
-	get value() {
+	get value(): any[] {
 		const value: any[] = Array.from(this.items.map(item => item.value));
 		value['$$items'] = this.items;
 		return value;
 	}
 
-	set value(value: any) {
+	set value(value: any[]) {
 		super.value = value;
 	}
 
