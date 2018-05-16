@@ -12,7 +12,7 @@ export type TDerivedNodeClass = new(name: string, value?: any) => Node;
  * @returns {boolean}
  */
 export function isTDerivedNodeClass(Class): Class is TDerivedNodeClass {
-	return Node.prototype.isPrototypeOf(Class);
+	return Node.prototype.isPrototypeOf(Class.prototype);
 }
 
 /**
