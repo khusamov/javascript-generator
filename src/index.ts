@@ -1,4 +1,4 @@
-export { default as Node } from './lib/node/Node';
+export { default as Node, isTDerivedNodeClass } from './lib/node/Node';
 
 export { default as BooleanNode } from './lib/node/scalar/BooleanNode';
 export { default as DateNode } from './lib/node/scalar/DateNode';
