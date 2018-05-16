@@ -1,33 +1,31 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
-import { NullNode, ObjectNode, ObjectNodeView } from '../../..';
 import { normalizeString } from '../../util';
+import { NullNode, ObjectNode, ObjectNodeView, StringNode } from '../../..';
 
 describe('ObjectNode', () => {
 
-	const sampleObject = {
-		serviceMethod: 'getPaymentsHistoryByDebtor',
-		reader: {
-			rootProperty: 'result.ResultItems',
-			typeProperty: function(rawNode) {
-				const namespace = "Pir.server.model.baseModel.type";
-				return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+	it('_Комплексный пример (УБРАТь!!!)_', () => {
+		const sampleObject = {
+			serviceMethod: 'getPaymentsHistoryByDebtor',
+			reader: {
+				rootProperty: 'result.ResultItems',
+				typeProperty: function(rawNode) {
+					const namespace = "Pir.server.model.baseModel.type";
+					return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+				}
 			}
-		}
-	};
-
-	const sampleObjectAsString = `{
-		serviceMethod: 'getPaymentsHistoryByDebtor',
-		reader: {
-			rootProperty: 'result.ResultItems',
-			typeProperty: function(rawNode) {
-				const namespace = "Pir.server.model.baseModel.type";
-				return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+		};
+		const sampleObjectAsString = `{
+			serviceMethod: 'getPaymentsHistoryByDebtor',
+			reader: {
+				rootProperty: 'result.ResultItems',
+				typeProperty: function(rawNode) {
+					const namespace = "Pir.server.model.baseModel.type";
+					return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+				}
 			}
-		}
-	}`;
-
-	it('Образец объекта', () => {
+		}`;
 		assert.equal(
 			normalizeString(new ObjectNodeView(new ObjectNode('sampleObject', sampleObject)).toString()),
 			normalizeString(sampleObjectAsString)
@@ -53,6 +51,13 @@ describe('ObjectNode', () => {
 	it('Получение дочернего узла', function() {
 		const sampleObjectNode = new ObjectNode('sampleObject', { property1: null });
 		assert.instanceOf<NullNode>(sampleObjectNode.down<NullNode>('property1'), NullNode);
+	});
+
+	it('Добавление свойства', function() {
+		const sampleObjectNode = new ObjectNode('sampleObject');
+		sampleObjectNode.add('property1', StringNode);
+		assert.instanceOf<StringNode>(sampleObjectNode.get<StringNode>('property1'), StringNode);
+		assert.isUndefined<string>(sampleObjectNode.get<StringNode>('property1').value);
 	});
 
 });
