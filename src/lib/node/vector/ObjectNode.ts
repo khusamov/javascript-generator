@@ -52,6 +52,7 @@ export default class ObjectNode extends VectorNode<any> {
 	/**
 	 * Добавление одиночного свойства или присоединения всех свойств из объекта, поданного в valueOrName.
 	 * Если name совпадет с имеющимся, то свойство будет перезаписано.
+	 * Если первый аргумент строка, то второй аргумент является обязательным к заполнению.
 	 * @param {string | any | Node} nameOrValueOrNode
 	 * @param {string | any | TDerivedNodeClass} commentOrValueOrNodeClass
 	 * @param {any | TDerivedNodeClass} valueOrNodeClass
@@ -77,7 +78,10 @@ export default class ObjectNode extends VectorNode<any> {
 			case 3: name = nameOrValueOrNode; comment = commentOrValueOrNodeClass; value = valueOrNodeClass; break;
 		}
 
-
+		if (_.isString(nameOrValueOrNode) && arguments.length === 1) {
+			// Если первый аргумент строка, то второй аргумент является обязательным к заполнению.
+			throw new Error(`Для узла '${nameOrValueOrNode}' не задан тип или значение.`);
+		}
 
 		((
 			arguments.length === 1

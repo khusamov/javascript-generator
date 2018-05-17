@@ -60,4 +60,11 @@ describe('ObjectNode', () => {
 		assert.isUndefined<string | String>(sampleObjectNode.get<StringNode>('property1').value);
 	});
 
+	it('Добавление свойства без указания типа и без значения', function() {
+		const sampleObjectNode = new ObjectNode('sampleObject');
+		assert.throw(function() {
+			sampleObjectNode.add('property1');
+		}, `Для узла 'property1' не задан тип или значение.`);
+	});
+
 });
