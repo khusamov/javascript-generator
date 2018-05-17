@@ -1,6 +1,7 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
 import {
+	Node,
 	BooleanNode,
 	DateNode,
 	ExpressionNode,
@@ -16,6 +17,28 @@ import {
 } from '../..';
 
 describe('Node', function() {
+	describe('Создание абстрактного узла', function() {
+		it('Имя узла', function() {
+			class SampleNode extends Node {}
+			const node1 = new SampleNode('node1');
+			assert.strictEqual<string>(node1.name, 'node1');
+		});
+		it('Значение узла', function() {
+			class SampleNode extends Node {}
+			const node1value1 = {};
+			const node1value2 = {};
+			const node1 = new SampleNode('node1', node1value1);
+			assert.strictEqual<object>(node1.value, node1value1);
+			node1.value = node1value2;
+			assert.strictEqual<object>(node1.value, node1value2);
+		});
+		it('Комментарий к узлу', function() {
+			class SampleNode extends Node {}
+			const node1 = new SampleNode('node1');
+			node1.comment = 'Комментарий к узлу';
+			assert.strictEqual<string>(node1.comment, 'Комментарий к узлу');
+		});
+	});
 	describe('isTDerivedNodeClass', function() {
 		describe('Класс наследуется от Node', function() {
 			const nodes = {
