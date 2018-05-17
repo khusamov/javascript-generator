@@ -1,17 +1,19 @@
 import AbstractNode from './AbstractNode';
-import getPrototypeOf = Reflect.getPrototypeOf;
 
 /**
  * Любой производный класс от Node.
  */
 export type TDerivedNodeClass = new(name: string, value?: any) => Node;
 
+export type TAnyClass = new(...args: any[]) => object;
+
 /**
  * Проверка, является ли класс производным от Node.
  * @param Class
  * @returns {boolean}
  */
-export function isTDerivedNodeClass(Class): Class is TDerivedNodeClass {
+export function isTDerivedNodeClass(Class: TAnyClass): Class is TDerivedNodeClass {
+	if (!(Class && typeof Class === 'function' && 'prototype' in Class)) return false;
 	return Node.prototype.isPrototypeOf(Class.prototype);
 }
 
