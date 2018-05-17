@@ -57,7 +57,7 @@ describe('ObjectNode', () => {
 		const sampleObjectNode = new ObjectNode('sampleObject');
 		sampleObjectNode.add('property1', StringNode);
 		assert.instanceOf<StringNode>(sampleObjectNode.get<StringNode>('property1'), StringNode);
-		assert.isUndefined<string>(sampleObjectNode.get<StringNode>('property1').value);
+		assert.isUndefined<string | String>(sampleObjectNode.get<StringNode>('property1').value);
 	});
 
 });

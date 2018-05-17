@@ -3,8 +3,11 @@ import AbstractNode from './AbstractNode';
 /**
  * Любой производный класс от Node.
  */
-export type TDerivedNodeClass = new(name: string, value?: any) => Node;
+export type TDerivedNodeClass = new(...args: any[]) => Node<any>;
 
+/**
+ * Любой класс.
+ */
 export type TAnyClass = new(...args: any[]) => object;
 
 /**
@@ -19,5 +22,6 @@ export function isTDerivedNodeClass(Class: TAnyClass): Class is TDerivedNodeClas
 
 /**
  * Абстрактный класс JS-узла.
+ * При наследовании следует указать тип значения узла T.
  */
-export default abstract class Node extends AbstractNode {}
+export default abstract class Node<T = any> extends AbstractNode<T> {}

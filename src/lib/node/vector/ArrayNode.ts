@@ -3,7 +3,7 @@ import NodeFactory from '../NodeFactory';
 import Node from '../Node';
 import VectorNode from '../VectorNode';
 
-export default class ArrayNode extends VectorNode {
+export default class ArrayNode extends VectorNode<any[]> {
 
 	/**
 	 * Флаг, указывающий, являются ли элементы массива уникальными или нет.

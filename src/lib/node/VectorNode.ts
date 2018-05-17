@@ -4,7 +4,7 @@ import Node from './Node';
 
 export type TFilterFunction<T extends Node> = (this: void, item: T, index: number, items: T[]) => item is T;
 
-export default abstract class VectorNode extends Node {
+export default abstract class VectorNode<T = any> extends Node<T> {
 
 	protected divider: string = ', ';
 	protected brackets: string;

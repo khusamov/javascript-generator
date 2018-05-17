@@ -18,7 +18,7 @@ export function isIProperty(property: any): property is IProperty {
 	);
 }
 
-export default class ObjectNode extends VectorNode {
+export default class ObjectNode extends VectorNode<any> {
 
 	static createNodeFromProperty(property: IProperty): Node {
 		let result: Node;
