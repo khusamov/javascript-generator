@@ -11,7 +11,7 @@ export default class ArrayNode extends VectorNode<any[]> {
 	 * операция удаления повторяющихся элементов массива.
 	 * @type {boolean}
 	 */
-	unique: boolean = true;
+	unique: boolean = false;
 
 	protected brackets = '[]';
 	protected codeDivider = '';
@@ -24,25 +24,46 @@ export default class ArrayNode extends VectorNode<any[]> {
 
 	set value(value: any[]) {
 		super.value = value;
+		this.items = [];
+		this.add.apply(this, value);
 	}
 
 	constructor(name: string, value: any = []) {
 		super(name, value);
-		this.add.apply(this, Array.from(arguments).slice(1));
+		this.add.apply(this, value);
 	}
 
-	add(...value: any[]): this
-	add(value: any | any[]): this {
-		value = arguments.length > 1 ? Array.from(arguments) : value;
-		value = _.isArray(value) ? value : [value];
-		const items = value.map((item, index) => NodeFactory.createNode(index, item));
-		this.items = this.items.concat(items);
-		this.uniq();
+	/**
+	 * Добавление узлов в массив.
+	 * Можно добавлять несколько узлов (если указываются несколько аргументов).
+	 * Можно добавлять как узел (типа Node) или значение узла.
+	 * По умолчанию имена узлов равны undefined.
+	 * @param {(any | Node)[]} ...added
+	 * @param {any | Node} added
+	 * @returns {ArrayNode}
+	 */
+	add(...added: (any | Node)[]): this
+	add(added: any | Node): this {
+		if (arguments.length) {
+			this.items = this.items.concat(
+				(
+					arguments.length > 1
+						? Array.from(arguments)
+						: [added]
+				)
+					.map(
+						(addedItem, index) => addedItem instanceof Node
+							? addedItem
+							: NodeFactory.createNode(undefined, addedItem)
+					)
+			);
+			this.uniq();
+		}
 		return this;
 	}
 
 	private uniq(): void {
-		if (this.unique) this.items = _.uniq<Node>(this.items);
+		if (this.unique) this.items = _.uniqBy<Node>(this.items, 'value');
 	}
 
 }

@@ -3,73 +3,34 @@ import { assert } from 'chai';
 import { ArrayNode, ArrayNodeView } from '../../..';
 
 describe('ArrayNode', function() {
-
-	function normalizeString(str: string): string {
-		const EOL = '\n';
-		return str.split(EOL).map(str => str.trim()).join(EOL);
-	}
-
-	function assertArrayTypeEqual(actual: any[], expected: string, message?: string): void {
-		assert.equal<string>(
-			normalizeString(new ArrayNodeView(new ArrayNode('arrayName', actual)).toString()),
-			normalizeString(expected),
-			message
-		);
-	}
-
-	it('Числа', () => {
-		assertArrayTypeEqual([1, 2, 3, 4, 5], '[1, 2, 3, 4, 5]');
+	describe('Создание узла', function() {
+		it('Пустой узел с именем', function() {
+			const node1 = new ArrayNode('node1');
+			assert.strictEqual<string>(node1.name, 'node1');
+		});
+		it('Массив строк', function() {
+			const node1 = new ArrayNode('node1', ['Class1', 'Class2', 'Namespace2.sample.Class3']);
+			assert.deepEqual<string[]>(node1.value, ['Class1', 'Class2', 'Namespace2.sample.Class3']);
+		});
+		it('Массив null', function() {
+			const node1 = new ArrayNode('node1', [null, null, null, null, null]);
+			assert.deepEqual<null[]>(node1.value, [null, null, null, null, null]);
+		});
+		it('Массив undefined', function() {
+			const node1 = new ArrayNode('node1', [undefined, undefined, undefined, undefined, undefined]);
+			assert.deepEqual<undefined[]>(node1.value, [undefined, undefined, undefined, undefined, undefined]);
+		});
 	});
-
-	it('Строки', () => {
-		assertArrayTypeEqual(['1', '2', '3', '4', '5'], `['1', '2', '3', '4', '5']`);
+	describe('Добавление элементов в пустой узел', function() {
+		it('Методом add(item1, item2, ...)', function() {
+			const node1 = new ArrayNode('node1');
+			node1.add('Class1', 'Class2', 'Namespace2.sample.Class3');
+			assert.deepEqual<string[]>(node1.value, ['Class1', 'Class2', 'Namespace2.sample.Class3']);
+		});
+		it('Методом add([item1, item2, ...])', function() {
+			const node1 = new ArrayNode('node1');
+			node1.add(['Class1', 'Class2', 'Namespace2.sample.Class3']);
+			assert.deepEqual<string[][]>(node1.value, [['Class1', 'Class2', 'Namespace2.sample.Class3']]);
+		});
 	});
-
-	it('Числа и строки', () => {
-		assertArrayTypeEqual(['1', 2, '3', '4', 5], `['1', 2, '3', '4', 5]`);
-	});
-
-	it('Объекты', () => {
-		assertArrayTypeEqual([{
-			a: 'a',
-			b: 'b'
-		}, {
-			a: 'a'
-		}, 3, 4, 5], `[{ 
-			a: 'a', 
-			b: 'b'
-		}, { 
-			a: 'a'
-		}, 3, 4, 5]`);
-	});
-
-	it('Функции', () => {
-		assertArrayTypeEqual(
-			[function() {}, function funcName() {}],
-			`[function() { }, function funcName() { }]`
-		);
-	});
-
-	it('Стрелочные функции', () => {
-		assertArrayTypeEqual(
-			[() => {}, param1 => {}, (param1, param2) => {}],
-			`[() => { }, param1 => { }, (param1, param2) => { }]`
-		);
-	});
-
-	it('null', () => {
-		assertArrayTypeEqual([null, null, null, null, null], '[null, null, null, null, null]');
-	});
-
-	it('undefined', () => {
-		assertArrayTypeEqual([undefined, undefined], '[undefined, undefined]');
-	});
-
-	it('Регулярные выражения', () => {
-		assertArrayTypeEqual(
-			[/regularexpression/g, /regularexpression/ig],
-			`[new RegExp('regularexpression', 'g'), new RegExp('regularexpression', 'gi')]`
-		);
-	});
-
 });
