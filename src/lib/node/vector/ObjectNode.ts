@@ -42,6 +42,8 @@ export default class ObjectNode extends VectorNode<any> {
 
 	set value(value: any) {
 		super.value = value;
+		this.items = [];
+		this.add(value);
 	}
 
 	constructor(name: string, value: any = {}) {
