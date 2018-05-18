@@ -1,3 +1,4 @@
+export { default as NodeFactory } from './lib/node/NodeFactory';
 export { default as Node, isTDerivedNodeClass } from './lib/node/Node';
 
 export { default as BooleanNode } from './lib/node/scalar/BooleanNode';
