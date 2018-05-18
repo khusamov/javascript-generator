@@ -12,6 +12,12 @@ import ArrayNode from './vector/ArrayNode';
 import ObjectNode from './vector/ObjectNode';
 
 export default class NodeFactory {
+	/**
+	 * Создание узла на основе типа его значения.
+	 * @param {string} name
+	 * @param {any} value
+	 * @returns {Node}
+	 */
 	static createNode(name: string, value: any): Node {
 		if (value instanceof Node) return value;
 		else if (_.isString(value)) return new StringNode(name, value);
