@@ -4,6 +4,9 @@ import Node from './Node';
 
 export type TFilterFunction<T extends Node> = (this: void, item: T, index: number, items: T[]) => item is T;
 
+/**
+ * Абстрактный класс узла, который из себя представляет коллекцию (массив или объект).
+ */
 export default abstract class VectorNode<T = any> extends Node<T> {
 
 	protected divider: string = ', ';
@@ -28,15 +31,7 @@ export default abstract class VectorNode<T = any> extends Node<T> {
 		return new JsonPath(this.value);
 	}
 
-	set value(value: any) {
-		this._value = value;
-		this.items = [];
-		this.add(value);
-	}
-
-	add(value: any): this {
-		return this;
-	}
+	abstract add(value: any): this
 
 	remove(removable: Node): this {
 		_.remove(this.items, item => item === removable);
