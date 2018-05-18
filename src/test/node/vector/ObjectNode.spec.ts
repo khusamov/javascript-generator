@@ -48,9 +48,15 @@ describe('ObjectNode', () => {
 		assert.isTrue(sampleObjectNode.has('property1'));
 	});
 
-	it('Получение дочернего узла', function() {
-		const sampleObjectNode = new ObjectNode('sampleObject', { property1: null });
-		assert.instanceOf<NullNode>(sampleObjectNode.down<NullNode>('property1'), NullNode);
+	describe('Получение дочернего узла', function() {
+		it('Методом down()', function() {
+			const sampleObjectNode = new ObjectNode('sampleObject', { property1: null });
+			assert.instanceOf<NullNode>(sampleObjectNode.down<NullNode>('property1'), NullNode);
+		});
+		it('Методом get()', function() {
+			const sampleObjectNode = new ObjectNode('sampleObject', { property1: null });
+			assert.instanceOf<NullNode>(sampleObjectNode.get<NullNode>('property1'), NullNode);
+		});
 	});
 
 	it('Добавление свойства', function() {
