@@ -18,7 +18,7 @@ export default class ArrayNode extends VectorNode<any[]> {
 
 	get value(): any[] {
 		const value: any[] = Array.from(this.items.map(item => item.value));
-		value['$$items'] = this.items;
+		value[VectorNode.nodeItemsSymbol] = this.items;
 		return value;
 	}
 

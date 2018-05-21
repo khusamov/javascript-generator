@@ -36,7 +36,7 @@ export default class ObjectNode extends VectorNode<any> {
 		const value = this.items.reduce<any>((result, item): any => {
 			return Object.assign(result, {[item.name]: item.value});
 		}, {});
-		value['$$items'] = this.items;
+		value[VectorNode.nodeItemsSymbol] = this.items;
 		return value;
 	}
 

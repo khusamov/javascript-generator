@@ -35,7 +35,7 @@ describe('ObjectNode', () => {
 	it('Создание пустого узла', function() {
 		const sampleObjectNode = new ObjectNode('sampleObject');
 		assert.strictEqual<number>(sampleObjectNode.count, 0);
-		assert.deepEqual<any>(sampleObjectNode.value, {'$$items': []});
+		assert.deepEqual<any>(sampleObjectNode.value, {});
 	});
 
 	it('Проверка наличия несуществующего свойства', function() {

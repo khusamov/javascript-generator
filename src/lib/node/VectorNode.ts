@@ -9,6 +9,13 @@ export type TFilterFunction<T extends Node> = (this: void, item: T, index: numb
  */
 export default abstract class VectorNode<T = any> extends Node<T> {
 
+	/**
+	 * Специальный символ для хранения в объектах ссылки на массив VectorNode.items.
+	 * Необходим, чтобы корректно работала функция поиска узлов при помощи VectorNode.jsonPath.
+	 * @type {symbol}
+	 */
+	static nodeItemsSymbol = Symbol('$$items');
+
 	protected divider: string = ', ';
 	protected brackets: string;
 	protected codeDivider: string;
@@ -59,7 +66,7 @@ export default abstract class VectorNode<T = any> extends Node<T> {
 		if (foundNodes.length) {
 			const node = foundNodes[0];
 			const parent = jsonPath.parent(pathExpression);
-			const items = parent['$$items'] as Node[];
+			const items = parent[VectorNode.nodeItemsSymbol] as Node[];
 
 			if (_.isArray(parent)) {
 				result = items[parent.indexOf(node)];
