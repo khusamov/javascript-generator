@@ -1,10 +1,5 @@
+import Node from '../../node/Node';
 import ArrayNode from '../../node/vector/ArrayNode';
 import Code from '../Code';
-import Node from '../../node/Node';
 
-export default class ArrayCode extends Code {
-	protected node: ArrayNode;
-	constructor(node: Node) {
-		super(node);
-	}
-}
+export default class ArrayCode<T extends Node = ArrayNode> extends Code<T> {}

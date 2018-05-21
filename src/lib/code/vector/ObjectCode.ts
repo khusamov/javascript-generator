@@ -1,10 +1,5 @@
+import Node from '../../node/Node';
 import ObjectNode from '../../node/vector/ObjectNode';
 import Code from '../Code';
-import Node from '../../node/Node';
 
-export default class ObjectCode extends Code {
-	protected node: ObjectNode;
-	constructor(node: Node) {
-		super(node);
-	}
-}
+export default class ObjectCode<T extends Node = ObjectNode> extends Code<T> {}
