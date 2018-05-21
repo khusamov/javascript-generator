@@ -14,6 +14,17 @@ export default abstract class AbstractNode<T = any> {
 	}
 
 	/**
+	 * Дублирование присвоения значения свойства Node.value.
+	 * В некоторых случаях лучше смотрится на фоне остальных команд.
+	 * @param {T} value
+	 * @returns {AbstractNode}
+	 */
+	set(value: T): this {
+		this.value = value;
+		return this;
+	}
+
+	/**
 	 * Конструктор узла.
 	 * Значение узла задавать не обязательно, потому что есть такие узлы, для которых
 	 * значение даже бесмысленно задавать, например null или undefined.
