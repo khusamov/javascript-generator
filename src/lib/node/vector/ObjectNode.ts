@@ -20,6 +20,13 @@ export function isIProperty(property: any): property is IProperty {
 
 export default class ObjectNode extends VectorNode<any> {
 
+	/**
+	 * Создание узла из описания свойства.
+	 * Если узел получится без имени (property.value является узлом, у которого name === undefined | null),
+	 * то ему будет задано имя из описания свойства.
+	 * @param {IProperty} property
+	 * @returns {Node}
+	 */
 	static createNodeFromProperty(property: IProperty): Node {
 		let result: Node;
 		if (!isIProperty(property)) throw new Error(`Объект не соответствует TProperty.`);
@@ -27,6 +34,7 @@ export default class ObjectNode extends VectorNode<any> {
 			? new (property.value as TDerivedNodeClass)(property.name)
 			: NodeFactory.createNode(property.name, property.value);
 		if ('comment' in property && !!property.comment) result.comment = property.comment;
+		if (_.isNil(result.name)) result.name = property.name;
 		return result;
 	}
 
