@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
 import { normalizeString } from '../../util';
-import { NullNode, ObjectNode, ObjectNodeView, StringNode } from '../../..';
+import {NullNode, ObjectNode, ObjectNodeView, StringNode, FunctionNode, ExpressionNode} from '../../..';
 
 describe('ObjectNode', () => {
 
@@ -13,7 +13,11 @@ describe('ObjectNode', () => {
 				typeProperty: function(rawNode) {
 					const namespace = "Pir.server.model.baseModel.type";
 					return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
-				}
+				},
+				typeProperty2: new FunctionNode(null, `function(rawNode) {
+					const namespace = "Pir.server.model.baseModel.type";
+					return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+				}`)
 			}
 		};
 		const sampleObjectAsString = `{
@@ -21,6 +25,10 @@ describe('ObjectNode', () => {
 			reader: {
 				rootProperty: 'result.ResultItems',
 				typeProperty: function(rawNode) {
+					const namespace = "Pir.server.model.baseModel.type";
+					return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+				},
+				typeProperty2: function(rawNode) {
 					const namespace = "Pir.server.model.baseModel.type";
 					return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
 				}

@@ -28,4 +28,15 @@ describe('FunctionNode', () => {
 		);
 	});
 
+	it('Функция задается текстом с кодом функции', function() {
+		assert.isFalse(new FunctionNode('sampleFunction', `function(rawNode) {
+			const namespace = "Pir.server.model.baseModel.type";
+			return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+		}`).isArrowFunction);
+		assert.isTrue(new FunctionNode('sampleFunction', `rawNode => {
+			const namespace = "Pir.server.model.baseModel.type";
+			return "type" in rawNode ? namespace + ".T" + rawNode.type : undefined;
+		}`).isArrowFunction);
+	});
+
 });
