@@ -3,9 +3,30 @@ import * as Vm from 'vm';
 import ScalarNode from '../ScalarNode';
 
 export default class FunctionNode extends ScalarNode<Function> {
+	/**
+	 * Создание безымянного FunctionNode узла.
+	 * Функция шаблонизации (https://learn.javascript.ru/es-string).
+	 * @param {TemplateStringsArray} strings
+	 * @param {string} vars
+	 * @returns {FunctionNode}
+	 */
+	static nameless(strings: TemplateStringsArray, ...vars: string[]): FunctionNode {
+		const str = strings.map((s, i) => s + (i === vars.length ? '' : vars[i])).join('');
+		return new this(undefined, str);
+	}
+
+	/**
+	 * Проверка, является ли функция методом объекта или нет.
+	 * @returns {boolean}
+	 */
 	get isMethodFunction(): boolean {
 		return this.value.toString().indexOf('function') !== 0 && !this.isArrowFunction;
 	}
+
+	/**
+	 * Проверка, является ли функция стрелочной или нет.
+	 * @returns {boolean}
+	 */
 	get isArrowFunction(): boolean {
 		const match = this.value.toString().match(/.*?=>/);
 		return match ? !match[0].match(/.+?\(/) : false;

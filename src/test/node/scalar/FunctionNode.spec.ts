@@ -39,4 +39,12 @@ describe('FunctionNode', () => {
 		}`).isArrowFunction);
 	});
 
+	it('Безымянный FunctionNode узел', function() {
+		const node1 = FunctionNode.nameless`function(foodType) {
+			alert(this.name + " is eating: " + foodType);
+		}`;
+		assert.isUndefined<string>(node1.name);
+		assert.isFunction<Function>(node1.value);
+	});
+
 });
