@@ -14,11 +14,13 @@ import ObjectNode from './vector/ObjectNode';
 export default class NodeFactory {
 	/**
 	 * Создание узла на основе типа его значения.
-	 * @param {string} name
+	 * Внимание! Этим методом нельзя создать такие узлы как ExpressionNode
+	 * и FunctionNode (вариант когда функция задана в виде текста).
+	 * @param {string | undefined} name
 	 * @param {any} value
 	 * @returns {Node}
 	 */
-	static createNode(name: string, value: any): Node {
+	static createNode(name: string | undefined, value: any): Node {
 		if (value instanceof Node) return value;
 		else if (_.isString(value)) return new StringNode(name, value);
 		else if (_.isBoolean(value)) return new BooleanNode(name, value);
