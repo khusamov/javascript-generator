@@ -4,8 +4,21 @@
  * При наследовании следует указать тип значения узла T.
  */
 export default abstract class AbstractNode<T = any> {
-	public comment: string;
-	protected _value: any;
+	/**
+	 * Комментарий к узлу.
+	 */
+	comment: string;
+
+	/**
+	 * Имя узла.
+	 */
+	name: string;
+
+	/**
+	 * Значение узла.
+	 * @returns {T}
+	 */
+	private _value: T;
 	get value(): T {
 		return this._value;
 	}
@@ -14,7 +27,7 @@ export default abstract class AbstractNode<T = any> {
 	}
 
 	/**
-	 * Дублирование присвоения значения свойства Node.value.
+	 * Альтернативный вариант оператора присвоения значения свойства (Node.value = <Новое значение узла>).
 	 * В некоторых случаях лучше смотрится на фоне остальных команд.
 	 * @param {T} value
 	 * @returns {AbstractNode}
@@ -29,9 +42,10 @@ export default abstract class AbstractNode<T = any> {
 	 * Значение узла задавать не обязательно, потому что есть такие узлы, для которых
 	 * значение даже бесмысленно задавать, например null или undefined.
 	 * @param {string} name Имя узла.
-	 * @param {any} value Значение узла.
+	 * @param {T} value Значение узла.
 	 */
-	constructor(public name: string, value?: T) {
+	constructor(name: string, value?: T) {
+		this.name = name;
 		this.value = value;
 	}
 }
