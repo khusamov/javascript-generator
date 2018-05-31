@@ -6,13 +6,13 @@ import Comment from './Comment';
 /**
  * Класс генерации строкового представления узла.
  */
-export default abstract class Code<T extends Node = Node> {
+export default abstract class Code<T extends Node = Node, U extends NodeView = NodeView> {
 	protected EOL: string = '\n';
 	protected statementDeclares: string = 'const';
 	protected suffix: string = ';';
-	protected nodeView: NodeView;
+	protected nodeView: U;
 	protected constructor(protected node: T) {
-		this.nodeView = NodeViewFactory.createNodeView(node);
+		this.nodeView = NodeViewFactory.createNodeView(node) as U;
 	}
 
 	/**

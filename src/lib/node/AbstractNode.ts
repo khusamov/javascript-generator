@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 
 /**
  * Абстрактный класс JS-узла.
@@ -24,6 +25,18 @@ export default abstract class AbstractNode<T = any> {
 	}
 	set value(value: T) {
 		this._value = value;
+	}
+
+	/**
+	 * Проверка, пустой ли узел или нет.
+	 * Пустым считается: undefined, null, пустая строка, пустая коллекция.
+	 * @returns {boolean}
+	 */
+	get isEmpty(): boolean {
+		// TODO Упростить выражение https://goo.gl/mKqtf6
+		if (_.isPlainObject(this.value) || _.isArray(this.value) || _.isMap(this.value) || _.isSet(this.value)) return _.isEmpty(this.value);
+		if (_.isString(this.value) && !this.value.trim().length) return true;
+		return _.isNil(this.value);
 	}
 
 	/**

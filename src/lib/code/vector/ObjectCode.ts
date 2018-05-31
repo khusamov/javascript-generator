@@ -1,9 +1,9 @@
-import Node from '../../node/Node';
 import ObjectNode from '../../node/vector/ObjectNode';
-import Code from '../Code';
+import VectorCode from '../VectorCode';
+import ObjectNodeView from '../../view/vector/ObjectNodeView';
 
-export default class ObjectCode<T extends Node = ObjectNode> extends Code<T> {
-	constructor(node: T) {
+export default class ObjectCode extends VectorCode<ObjectNode, ObjectNodeView> {
+	constructor(protected node: ObjectNode) {
 		super(node);
 	}
 }
