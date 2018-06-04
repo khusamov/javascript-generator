@@ -10,7 +10,7 @@ export default abstract class VectorCode<
 	 * Флаг, который определяет, исключать из выходного кода пустые узлы или нет.
 	 * @type {boolean}
 	 */
-	protected excludeEmptyNodes = false;
+	excludeEmptyNodes = false;
 
 	protected createExpressionToString(): string {
 		this.nodeView.excludeEmptyNodes = this.excludeEmptyNodes;
