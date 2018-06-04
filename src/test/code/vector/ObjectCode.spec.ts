@@ -96,4 +96,37 @@ describe('ObjectCode', function() {
 			};`)
 		);
 	});
+
+
+	it('excludeEmptyNodes с переопределением createExpressionToString', function() {
+		class ClassCode extends ObjectCode {
+			excludeEmptyNodes = true;
+			protected createExpressionToString(): string {
+				return `Ext.define('${this.node.name}', ${this.nodeView.toString()})${this.suffix}`;
+			}
+		}
+		const objectNodeSample = new ObjectNode('objectSample', {
+			serviceMethod: 'getPaymentsHistoryByDebtor',
+			reader: {},
+			rootProperty: '',
+			typeProperty: null,
+			typeProperty2: undefined,
+			typePropertyArray: []
+		});
+		const objectCodeSample = new ClassCode(objectNodeSample);
+		assert.equal(
+			normalizeString(objectCodeSample.toString()),
+			normalizeString(`Ext.define('objectSample', {
+				serviceMethod: 'getPaymentsHistoryByDebtor'
+			});`)
+		);
+		objectCodeSample.excludeEmptyNodes = false;
+		assert.notEqual(
+			normalizeString(objectCodeSample.toString()),
+			normalizeString(`Ext.define('objectSample', {
+				serviceMethod: 'getPaymentsHistoryByDebtor'
+			});`)
+		);
+	});
+
 });

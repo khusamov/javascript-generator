@@ -12,8 +12,8 @@ export default abstract class VectorCode<
 	 */
 	excludeEmptyNodes = false;
 
-	protected createExpressionToString(): string {
+	toString(): string {
 		this.nodeView.excludeEmptyNodes = this.excludeEmptyNodes;
-		return super.createExpressionToString();
+		return super.toString();
 	}
 }
