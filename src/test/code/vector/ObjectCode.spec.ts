@@ -71,4 +71,29 @@ describe('ObjectCode', function() {
 		);
 	});
 
+	it('excludeEmptyNodes', function() {
+		const objectNodeSample = new ObjectNode('objectSample', {
+			serviceMethod: 'getPaymentsHistoryByDebtor',
+			reader: {},
+			rootProperty: '',
+			typeProperty: null,
+			typeProperty2: undefined,
+			typePropertyArray: []
+		});
+		const objectCodeSample = new ObjectCode(objectNodeSample);
+		objectCodeSample.excludeEmptyNodes = true;
+		assert.equal(
+			normalizeString(objectCodeSample.toString()),
+			normalizeString(`const objectSample = {
+				serviceMethod: 'getPaymentsHistoryByDebtor'
+			};`)
+		);
+		objectCodeSample.excludeEmptyNodes = false;
+		assert.notEqual(
+			normalizeString(objectCodeSample.toString()),
+			normalizeString(`const objectSample = {
+				serviceMethod: 'getPaymentsHistoryByDebtor'
+			};`)
+		);
+	});
 });
