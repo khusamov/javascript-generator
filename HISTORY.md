@@ -2,6 +2,17 @@
 История изменений
 =================
 
+1.8.3
+-----
+
+Подавлен вывод сообщения:
+
+    No parser and no filepath given, using 'babylon' the parser now but this
+    will throw an error in the future. Please specify a parser or a filepath
+    so one can be inferred.
+
+Подробности см. https://github.com/prettier/prettier/issues/4718
+
 1.8.2
 -----
 
