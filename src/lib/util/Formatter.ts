@@ -7,6 +7,7 @@ export default class Formatter {
 
 	static prettyFormat(text: string): string {
 		return Prettier.format(text, {
+			parser: 'babylon',
 			useTabs: true,
 			printWidth: 100,
 			singleQuote: true
