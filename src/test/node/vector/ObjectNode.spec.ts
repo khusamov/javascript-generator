@@ -1,10 +1,9 @@
 import { describe, it } from 'mocha';
 import { assert } from 'chai';
 import { normalizeString } from '../../util';
-import {NullNode, ObjectNode, ObjectNodeView, StringNode, FunctionNode, ExpressionNode} from '../../..';
+import {NullNode, ObjectNode, ObjectNodeView, StringNode, FunctionNode, ExpressionNode, ArrayNode} from '../../..';
 
 describe('ObjectNode', () => {
-
 	it('_Комплексный пример (УБРАТь!!!)_', () => {
 		const sampleObject = {
 			serviceMethod: 'getPaymentsHistoryByDebtor',
@@ -39,23 +38,19 @@ describe('ObjectNode', () => {
 			normalizeString(sampleObjectAsString)
 		);
 	});
-
 	it('Создание пустого узла', function() {
 		const sampleObjectNode = new ObjectNode('sampleObject');
 		assert.strictEqual<number>(sampleObjectNode.count, 0);
 		assert.deepEqual<any>(sampleObjectNode.value, {});
 	});
-
 	it('Проверка наличия несуществующего свойства', function() {
 		const sampleObjectNode = new ObjectNode('sampleObject');
 		assert.isFalse(sampleObjectNode.has('extend'));
 	});
-
 	it('Проверка наличия существующего свойства', function() {
 		const sampleObjectNode = new ObjectNode('sampleObject', { property1: null });
 		assert.isTrue(sampleObjectNode.has('property1'));
 	});
-
 	describe('Получение дочернего узла', function() {
 		it('Методом down()', function() {
 			const sampleObjectNode = new ObjectNode('sampleObject', { property1: null });
@@ -66,19 +61,24 @@ describe('ObjectNode', () => {
 			assert.instanceOf<NullNode>(sampleObjectNode.get<NullNode>('property1'), NullNode);
 		});
 	});
-
 	it('Добавление свойства', function() {
 		const sampleObjectNode = new ObjectNode('sampleObject');
 		sampleObjectNode.add('property1', StringNode);
 		assert.instanceOf<StringNode>(sampleObjectNode.get<StringNode>('property1'), StringNode);
 		assert.isUndefined<string | String>(sampleObjectNode.get<StringNode>('property1').value);
 	});
-
 	it('Добавление свойства без указания типа и без значения', function() {
 		const sampleObjectNode = new ObjectNode('sampleObject');
 		assert.throw(function() {
 			sampleObjectNode.add('property1');
 		}, `Для узла 'property1' не задан тип или значение.`);
 	});
-
+	it('Добавление пустого узла типа ArrayNode', function() {
+		const sampleObjectNode = new ObjectNode('sampleObject');
+		const sampleArrayNode: ArrayNode = new ArrayNode('sampleArrayNode');
+		sampleObjectNode.add('sampleArrayNode', sampleArrayNode);
+		assert.deepEqual<any>(sampleObjectNode.value, {
+			sampleArrayNode: []
+		});
+	});
 });
